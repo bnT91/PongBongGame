@@ -59,11 +59,11 @@ if __name__ == "__main__":
                 if ev.type == pg.KEYDOWN:
                     if ev.key == pg.K_w:
                         paddle1.control(-10)
-                    elif ev.key == pg.K_s:
+                    if ev.key == pg.K_s:
                         paddle1.control(10)
-                    elif ev.key == pg.K_UP:
+                    if ev.key == pg.K_UP:
                         paddle2.control(-10)
-                    elif ev.key == pg.K_DOWN:
+                    if ev.key == pg.K_DOWN:
                         paddle2.control(10)
                 if ev.type == pg.KEYUP:
                     if ev.key in (pg.K_w, pg.K_s):
