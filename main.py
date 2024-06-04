@@ -51,20 +51,21 @@ if __name__ == "__main__":
             if o_ball.rect.colliderect(paddle2.rect):
                 o_ball.vector[0] = -o_ball.vector[0]
 
+        keys = pg.key.get_pressed()
+        if keys[pg.K_w]:
+            paddle1.control(-12.5)
+        elif keys[pg.K_s]:
+            paddle1.control(12.5)
+        if keys[pg.K_UP]:
+            paddle2.control(-12.5)
+        elif keys[pg.K_DOWN]:
+            paddle2.control(12.5)
+
         for ev in pg.event.get():
             if ev.type == pg.QUIT:
                 pg.quit()
                 sys.exit()
             if started and not finished:
-                if ev.type == pg.KEYDOWN:
-                    if ev.key == pg.K_w:
-                        paddle1.control(-10)
-                    elif ev.key == pg.K_s:
-                        paddle1.control(10)
-                    if ev.key == pg.K_UP:
-                        paddle2.control(-10)
-                    elif ev.key == pg.K_DOWN:
-                        paddle2.control(10)
                 if ev.type == pg.KEYUP:
                     if ev.key in (pg.K_w, pg.K_s):
                         paddle1.control(0)

@@ -55,11 +55,11 @@ class Ball(pg.sprite.Sprite):
             if self.rect.x <= 35:
                 self.score2 += 1
                 self.reroll()
-                self.frame = 100
+                self.frame = 70
             if self.rect.x >= 1133:
                 self.score1 += 1
                 self.reroll()
-                self.frame = 100
+                self.frame = 70
         else:
             if self.rect.x <= 35:
                 self.rect.x = 35
