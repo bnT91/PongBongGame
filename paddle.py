@@ -2,12 +2,15 @@ import pygame as pg
 
 
 class Paddle(pg.sprite.Sprite):
-    def __init__(self, screen, topleft):
+    def __init__(self, screen, topleft, variant):
         super().__init__()
         self.screen = screen
         self.topleft = topleft
         self.movey = 0
-        self.image = pg.image.load("pic/paddle.png").convert()
+        if not variant:
+            self.image = pg.image.load("pic/paddle.png").convert()
+        else:
+            self.image = pg.image.load("pic/paddle (1).png").convert()
         self.rect = self.image.get_rect(topleft=tuple(self.topleft))
 
     def control(self, new_movey):
@@ -15,7 +18,7 @@ class Paddle(pg.sprite.Sprite):
 
     def update(self):
         self.rect.y += self.movey
-        if self.rect.y < 0:
-            self.rect.y = 0
-        elif self.rect.y > 615:
-            self.rect.y = 615
+        if self.rect.y < 20:
+            self.rect.y = 20
+        elif self.rect.y > 563:
+            self.rect.y = 563
