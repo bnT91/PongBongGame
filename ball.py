@@ -8,14 +8,15 @@ class Ball(pg.sprite.Sprite):
         self.screen = screen
         self.topleft = [600, rand.randint(200, 600)]
         self.vector = [0, 0]
+        self.frame = 0
         if rand.randint(0, 1) == 0:
-            self.vector[0] = rand.randint(5, 10)
+            self.vector[0] = rand.randint(10, 15)
         else:
-            self.vector[0] = -rand.randint(5, 10)
+            self.vector[0] = -rand.randint(10, 15)
         if rand.randint(0, 1) == 0:
-            self.vector[1] = rand.randint(5, 10)
+            self.vector[1] = rand.randint(10, 15)
         else:
-            self.vector[1] = -rand.randint(5, 10)
+            self.vector[1] = -rand.randint(10, 15)
         self.image = pg.image.load("pic/ball.png").convert_alpha()
         self.rect = self.image.get_rect(topleft=tuple(self.topleft))
 
@@ -28,15 +29,18 @@ class Ball(pg.sprite.Sprite):
         self.rect.y = self.topleft[1]
         self.vector = [0, 0]
         if rand.randint(0, 1) == 1:
-            self.vector[0] = rand.randint(self.score1 + self.score2 + 3, self.score1 + self.score2 + 8)
+            self.vector[0] = rand.randint(self.score1 + self.score2 + 6, self.score1 + self.score2 + 11)
         else:
-            self.vector[0] = -rand.randint(self.score1 + self.score2 + 3, self.score1 + self.score2 + 8)
+            self.vector[0] = -rand.randint(self.score1 + self.score2 + 6, self.score1 + self.score2 + 11)
         if rand.randint(0, 1) == 1:
-            self.vector[1] = rand.randint(self.score1 + self.score2 + 3, self.score1 + self.score2 + 8)
+            self.vector[1] = rand.randint(self.score1 + self.score2 + 6, self.score1 + self.score2 + 11)
         else:
-            self.vector[1] = -rand.randint(self.score1 + self.score2 + 3, self.score1 + self.score2 + 8)
+            self.vector[1] = -rand.randint(self.score1 + self.score2 + 6, self.score1 + self.score2 + 11)
 
     def update(self):
+        if self.frame:
+            self.frame -= 1
+
         self.rect.x += self.vector[0]
         self.rect.y += self.vector[1]
 
@@ -46,9 +50,20 @@ class Ball(pg.sprite.Sprite):
         if self.rect.y <= 10:
             self.rect.y = 10
             self.vector[1] = -self.vector[1]
-        if self.rect.x <= 35:
-            self.score2 += 1
-            self.reroll()
-        if self.rect.x >= 1133:
-            self.score1 += 1
-            self.reroll()
+
+        if not self.frame:
+            if self.rect.x <= 35:
+                self.score2 += 1
+                self.reroll()
+                self.frame = 100
+            if self.rect.x >= 1133:
+                self.score1 += 1
+                self.reroll()
+                self.frame = 100
+        else:
+            if self.rect.x <= 35:
+                self.rect.x = 35
+                self.vector[0] = -self.vector[0]
+            if self.rect.x >= 1133:
+                self.rect.x = 1133
+                self.vector[0] = -self.vector[0]
